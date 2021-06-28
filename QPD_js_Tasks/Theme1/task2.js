@@ -16,10 +16,10 @@ console.log(isEqual([1,2,3],[1,2,3,4]))
 
 function isEqual(value, other){
     
-    if(valueIsNaN(value) && valueIsNaN(other)){
+    if(checkOnNaN(value) && checkOnNaN(other)){
         return true;
     }
-    else if(valueIsNaN(value) || valueIsNaN(other)){
+    else if(checkOnNaN(value) || checkOnNaN(other)){
         return false;
     }
 
@@ -58,9 +58,8 @@ function isEqual(value, other){
     return true;
 }
 
-
-function valueIsNaN(value){
-    return value != value;
+function checkOnNaN(value){
+    return typeof value === 'number' && isNaN(value);
 }
 
 
