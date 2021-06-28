@@ -6,7 +6,10 @@ console.log('Objects tests: ')
 console.log(isEqual(NaN, {foo: {obj1 : 'boo'}}))
 console.log(isEqual({foo: {obj1 : 'boo'}}, {foo: {obj1 : 'boo'}}))
 console.log(isEqual({foo: {obj1 : 'to'}}, {foo: {obj1 : 'boo'}}))
-
+console.log(_.isEqual([1,2,3],[1,2,3]))
+console.log(_.isEqual([1,2,3,4],[1,2,3]))
+console.log(_.isEqual(NaN,[1,2,3]))
+console.log(_.isEqual({x:1},[1,2,3]))
 
 function isEqual(value, other){
     
@@ -17,7 +20,18 @@ function isEqual(value, other){
         return false;
     }
 
-    if(typeof value == 'object' && typeof other == 'object'){
+    if(typeof value !== 'object' && typeof other !== 'object'){
+        return value === other;
+    }
+    else if(Array.isArray(value) && Array.isArray(other)){
+        for (let index = 0; index < value.length; index++) {
+            if(value[index] !== other[index]){
+                return false;
+            }
+        }
+        return true;
+    }
+    else{
         for(let prop in value){
 
             if(!value.hasOwnProperty(prop)){
@@ -35,10 +49,6 @@ function isEqual(value, other){
             }
         }
     }
-    else if(value !== other){
-        return false;
-    }
-
     return true;
 }
 
@@ -46,3 +56,6 @@ function isEqual(value, other){
 function valueIsNaN(value){
     return value != value;
 }
+
+
+        
