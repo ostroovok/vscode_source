@@ -58,7 +58,7 @@ function Calculator(startValue){
                 valuesArr[index + 1] = valuesArr[index] - valuesArr[index + 1]
             }
         }
-        this.value = valuesArr[valuesArr.length-1]
+        this.value = valuesArr.pop()
         return this.value;
     }
 }
