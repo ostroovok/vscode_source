@@ -1,6 +1,6 @@
 function Calculator(startValue){
 
-    this.value = startValue
+    this.value = 0
 
     let valuesArr = [startValue]
     let operationsArr = []
@@ -42,22 +42,23 @@ function Calculator(startValue){
                 operationsArr.splice(index, 1)
                 index--;
             }
-            if(operationsArr[index] === '/'){
+            else if(operationsArr[index] === '/'){
                 valuesArr[index] /= valuesArr[index + 1]
                 valuesArr.splice(index + 1, 1)
                 operationsArr.splice(index, 1)
                 index--;
             }
         }
-        
+
         for (let index = 0; index < operationsArr.length; index++) {
             if(operationsArr[index] === '+'){
-                this.value += valuesArr[index + 1]
+                valuesArr[index + 1] += valuesArr[index]
             }
-            if(operationsArr[index] === '-'){
-                this.value -= valuesArr[index + 1]
+            else if(operationsArr[index] === '-'){
+                valuesArr[index + 1] = valuesArr[index] - valuesArr[index + 1]
             }
         }
+        this.value = valuesArr[valuesArr.length-1]
         return this.value;
     }
 }
@@ -83,6 +84,20 @@ console.log(new Calculator(2)
                 .plus(2)
                 .plus(10)
                 .plus(11)
+                .plus(12)
+                .multiply(2)
+                .multiply(6)
+                .divide(10)
+                .minus(1.67)
+                .calculate());
+
+console.log(new Calculator(2)
+                .multiply(2)
+                .multiply(6)
+                .plus(2)
+                .plus(10)
+                .plus(11)
+                .multiply(6)
                 .plus(12)
                 .multiply(2)
                 .multiply(6)
