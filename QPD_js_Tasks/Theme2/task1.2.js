@@ -1,51 +1,63 @@
 function Calculator(startValue){
 
     this.value = startValue
-    let arr = [[],[],[],[]]
+
+    let valuesArr = [startValue]
+    let operationsArr = []
 
     if(!new.target){
         throw new Error('Функция-конструктор \'Calculator\' не может быть вызвана без \'new\'')
     }
 
     this.plus = function (value){
-        arr[2].push(function(){
-            return this.value + value;
-        });
+        valuesArr.push(value)
+        operationsArr.push('+')
         return this;
     }
 
     this.multiply = function (value){
-        arr[0].push(function(){
-            return this.value * value;
-        });
+        valuesArr.push(value)
+        operationsArr.push('*')
         return this;
     }
 
     this.minus = function (value){
-        arr[3].push(function(){
-            return this.value - value;
-        });
+        valuesArr.push(value)
+        operationsArr.push('-')
         return this;
     }
 
     this.divide = function (value){
-        arr[1].push(function(){
-            return this.value / value;
-        });
+        valuesArr.push(value)
+        operationsArr.push('/')
         return this;
     }
 
     this.calculate = function(){
 
-        for (let index = 0; index < arr.length; index++) {
-            for (let j = 0; j < arr[index].length; j++) {
-                if(arr[index].length > 0){
-                    this.value = arr[index][j].call(this);
-                }
-                
+        for (let index = 0; index < operationsArr.length; index++) {
+            if(operationsArr[index] === '*'){
+                valuesArr[index] *= valuesArr[index + 1]
+                valuesArr.splice(index + 1, 1)
+                operationsArr.splice(index, 1)
+                index--;
+            }
+            if(operationsArr[index] === '/'){
+                valuesArr[index] /= valuesArr[index + 1]
+                valuesArr.splice(index + 1, 1)
+                operationsArr.splice(index, 1)
+                index--;
             }
         }
-
+        
+        for (let index = 0; index < operationsArr.length; index++) {
+            if(operationsArr[index] === '+'){
+                this.value += valuesArr[index + 1]
+            }
+            if(operationsArr[index] === '-'){
+                this.value -= valuesArr[index + 1]
+            }
+        }
         return this.value;
     }
 }
@@ -77,6 +89,3 @@ console.log(new Calculator(2)
                 .divide(10)
                 .minus(1.67)
                 .calculate());
-
-// Тест проверки на использование 'new'
-let ee = Calculator(3);
