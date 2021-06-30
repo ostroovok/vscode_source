@@ -5,12 +5,11 @@ arr = sortedUniq(arr)
 console.log(arr)
 
 function sortedUniq(array){
-    let outList = []
-    for (let index = 0; index < array.length - 1; index++) {
-        if(array[index] !== array[index + 1]){
+    let outList = [array[0]]
+    for (let index = 1; index < array.length; index++) {
+        if(array[index- 1] !== array[index]){
             outList.push(array[index])
         }
     }
-    outList.push(array[array.length-1])
     return outList;
 }
