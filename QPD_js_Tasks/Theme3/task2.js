@@ -1,4 +1,8 @@
+// --------------------------НЕВЕРНО, НАДО ПЕРЕПИСАТЬ-------------------//
+
+
 function createClass(obj){
+    
     return function(...properties){    
         obj.construct(...properties)
         for (const key in obj) {
@@ -49,4 +53,7 @@ barsik.getProperties();
 console.log(barsik.name)
 console.log(barsik.age)
 console.log(barsik.voice)
+
+
+
 
