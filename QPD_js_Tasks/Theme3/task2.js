@@ -1,59 +1,49 @@
-// --------------------------НЕВЕРНО, НАДО ПЕРЕПИСАТЬ-------------------//
-
 
 function createClass(obj){
-    
-    return function(...properties){    
-        obj.construct(...properties)
-        for (const key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                Object.defineProperty(this, key,
-                {
-                    value: obj[key],
-                    writable: true,
-                    enumerable: true,
-                    configurable: true
-                });
-            }
-        }
-    }
+    const constructor = obj.constructor
+    constructor.prototype = obj
+    return constructor
 }
 
 const Cat = createClass({
-    construct(name, age, voice){
+    constructor: function(name){
         this.name = name;
-        this.age = age;
-        this.voice = voice;
     },
     meow(){
-        console.log(`Meow i'm ${this.name} :3`);
-    },
-    sayHi(){
-        console.log('Hi!')
-    },
-    showVoice(){
-        if(confirm()){
-            alert('BARITONE voice: '
-            + 'meow :\`c')
-        }
-    },
-    getProperties(){
-        console.group('Properties')
-        for (const key in this) {
-            console.log(key)
-        }
-        console.groupEnd()
+        console.log(`Meow i'm ${this.name}`);
     }
 });
 
-const barsik = new Cat("Barsik", 20, 'BARITONE');
+const BigBoy = (function(parent){
+    extend(BigBoy, parent);
+    
+    function BigBoy(...args){
+        parent.call(this, ...args)
+    }
+
+    BigBoy.prototype.showVoice = function(){
+        console.log('MEOW');
+    }
+
+    return BigBoy;
+})(Cat);
+
+function extend(o1, o2){
+
+    function empty(){}
+
+    empty.prototype = Object.create(o2.prototype);
+    o1.prototype = new empty();
+
+    return o1;
+}
+
+
+const barsik = new Cat("Barsik");
+const bigB = new BigBoy('BARSIK')
+
+bigB.showVoice()
+bigB.meow()
+
+
 barsik.meow();
-barsik.sayHi();
-barsik.getProperties();
-console.log(barsik.name)
-console.log(barsik.age)
-console.log(barsik.voice)
-
-
-
-
