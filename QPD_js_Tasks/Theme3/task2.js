@@ -17,7 +17,7 @@ const Cat = createClass({
     }
 });
 
-const BigBoy = (function(parent){
+function Func(parent){
     extend(BigBoy, parent);
     
     function BigBoy(...args){
@@ -32,16 +32,26 @@ const BigBoy = (function(parent){
     }
 
     return BigBoy;
-})(Cat);
+}
+
+const BigBoy = Func(Cat);
+
 
 function extend(o1, o2){
+    for (const key in o2) {
+        if (!(key in o1)) {
+            o1[key] = o2[key];
+        }
+    }
     o1.prototype = Object.create(o2.prototype);
     return o1;
 }
 
 
 const barsik = new Cat("Barsik");
-const bigB = new BigBoy('BARSIK')
+const bigB = new BigBoy('BARSIK');
+
+extend(BigBoy, Cat)
 
 bigB.showVoice()
 bigB.meow()
