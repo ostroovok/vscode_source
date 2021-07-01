@@ -11,6 +11,9 @@ const Cat = createClass({
     },
     meow(){
         console.log(`Meow i'm ${this.name}`);
+    },
+    mrr(){
+        console.log('mrrr...')
     }
 });
 
@@ -24,17 +27,15 @@ const BigBoy = (function(parent){
     BigBoy.prototype.showVoice = function(){
         console.log('MEOW');
     }
+    BigBoy.prototype.threaten = function(){
+        console.log('i\'ll hit YOU meow');
+    }
 
     return BigBoy;
 })(Cat);
 
 function extend(o1, o2){
-
-    function empty(){}
-
-    empty.prototype = Object.create(o2.prototype);
-    o1.prototype = new empty();
-
+    o1.prototype = Object.create(o2.prototype);
     return o1;
 }
 
@@ -44,6 +45,8 @@ const bigB = new BigBoy('BARSIK')
 
 bigB.showVoice()
 bigB.meow()
-
+bigB.threaten();
+bigB.mrr();
 
 barsik.meow();
+barsik.mrr();
