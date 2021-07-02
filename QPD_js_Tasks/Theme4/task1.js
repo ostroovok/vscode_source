@@ -1,8 +1,8 @@
-function delay(ms, mes = 'done'){
+function delay(ms){
     return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(mes), ms);
+        setTimeout(() => resolve('done'), ms);
     });
 }
 
-let promise = delay(100).then(console.log);
+let promise = delay(1000).then(console.log);
 
