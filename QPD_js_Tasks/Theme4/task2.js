@@ -15,9 +15,9 @@ let arr = [
     new Promise((resolve, reject) => {
         setTimeout(() => resolve('done5'), 250);
     }),
-    // new Promise((resolve, reject) => {
-    //     setTimeout(() => reject('errrrrrrr'), 1200);
-    // }),
+    new Promise((resolve, reject) => {
+        setTimeout(() => reject('errrrrrrr'), 1200);
+    }),
 ];
 
 
